@@ -19,3 +19,7 @@ Set the following values:
     git config --global corp.org "value to grep for in .git/config to identify a corporate repo"
     git config --global corp.user "your username in the corporation"
     git config --global corp.email "your email in the corporation"
+
+## See also
+
+[git-ssh](https://github.com/diffsky/git-ssh) to ensure your corp ssh key is used with git
