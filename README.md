@@ -20,6 +20,8 @@ Set the following values:
     git config --global corp.user "your username in the corporation"
     git config --global corp.email "your email in the corporation"
 
+The `corp.org` supports multiple values to search for, separated by `;`, like `org1;org2`
+
 ## See also
 
 [git-ssh](https://github.com/diffsky/git-ssh) to ensure your corp ssh key is used with git
