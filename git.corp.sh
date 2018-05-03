@@ -11,12 +11,22 @@ if [ "$1" == "commit" ];then
     for i in "${ADDR[@]}"; do
       CORP_GIT=$(grep "${i}" ${CONFIG}/.git/config | wc -l)
       if [ "$CORP_GIT" -ge "1" ]; then
+        NOTICE="notice: corp repo detected\n"
         if [ $(git config user.email) != "$GIT_CORP_EMAIL" ]; then
-          echo -e "notice: corp repo detected," \
-                  "updating local git user to be ${GIT_CORP_USER}"
+          echo -e "${NOTICE}- updating local git user to be ${GIT_CORP_USER}"
+          NOTICE=""
           git config --local user.name "$GIT_CORP_USER"
           git config --local user.email "$GIT_CORP_EMAIL"
         fi
+
+        if [ ! -f "${CONFIG}/.git/hooks/commit-msg" ]; then
+          echo -e "${NOTICE}- adding commit-msg hook"
+          DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+          cp "$DIR/commit-msg" "${CONFIG}/.git/hooks/"
+          NOTICE=""
+          echo ""
+        fi
+
         break
       fi
     done
