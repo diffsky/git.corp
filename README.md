@@ -24,4 +24,4 @@ The `corp.org` supports multiple values to search for, separated by `;`, like `o
 
 ## See also
 
-[git-ssh](https://github.com/diffsky/git-ssh) to ensure your corp ssh key is used with git
+[git-ssh](https://github.com/matthewhadley/git-ssh) to ensure your corp ssh key is used with git
