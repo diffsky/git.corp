@@ -3,7 +3,7 @@
 MSG=$(head -1 $1)
 # commit message format (allow merge commit message)
 if ! [[ $MSG =~ ^Merge.*|(feat|fix|chore|docs|style|refactor|test)(\([^\(^\)]+\))?:( ).* ]]; then
-	echo "rejected: message format"
+	echo "Rejected commit: message format"
 	echo "<type>[optional scope]: <description>"
 	echo "   \`feat|fix|chore|docs|style|refactor|test"
 	echo "see: conventionalcommits.org"
@@ -11,7 +11,7 @@ if ! [[ $MSG =~ ^Merge.*|(feat|fix|chore|docs|style|refactor|test)(\([^\(^\)]+\)
 fi
 # commit message length
 if [[ ${#MSG} -gt 70 ]]; then
-	echo "rejected: message length"
+	echo "Rejected commit: message length"
 	echo "${MSG:0:70}..."
 	exit 1
 fi
