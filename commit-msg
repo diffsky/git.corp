@@ -1,8 +1,8 @@
 #!/bin/sh
 
 MSG=$(head -1 $1)
-# commit message format
-if ! [[ $MSG =~ ^(feat|fix|chore|docs|style|refactor|test)(\([^\(^\)]+\))?:( ).* ]]; then
+# commit message format (allow merge commit message)
+if ! [[ $MSG =~ ^Merge.*|(feat|fix|chore|docs|style|refactor|test)(\([^\(^\)]+\))?:( ).* ]]; then
 	echo "rejected: message format"
 	echo "<type>[optional scope]: <description>"
 	echo "   \`feat|fix|chore|docs|style|refactor|test"
