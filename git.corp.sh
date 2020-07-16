@@ -25,12 +25,14 @@ if [ "$1" == "commit" ];then
 
         break
       else
-        GIT_EMAIL=$(git config --global personal.email)
         GIT_USER=$(git config --global personal.user)
-        echo -e "notice: non-corp repo detected"
-        echo -e "- updating local git user to be ${GIT_USER}"
-        git config --local user.name "$GIT_USER"
-        git config --local user.email "$GIT_EMAIL"
+        GIT_EMAIL=$(git config --global personal.email)
+        if [[ $(git config user.name) != "$GIT_USER" || $(git config user.email) != "$GIT_EMAIL" ]]; then
+          echo -e "notice: non-corp repo detected"
+          echo -e "- updating local git user to be ${GIT_USER}"
+          git config --local user.name "$GIT_USER"
+          git config --local user.email "$GIT_EMAIL"
+        fi
       fi
     done
   fi
