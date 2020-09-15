@@ -2,12 +2,14 @@
 # Check to see if committing to a git repo as corp user
 if [ "$1" == "commit" ];then
   GIT_CORP_ORG=$(git config --global corp.org)
-  if [ ! -z "$GIT_CORP_ORG" ]; then
+  if [ -n "$GIT_CORP_ORG" ]; then
     GIT_CORP_EMAIL=$(git config --global corp.email)
-    CONFIG=$(git rev-parse --show-toplevel 2> /dev/null)
+    if ! CONFIG=$(git rev-parse --show-toplevel); then
+      exit $?
+    fi
     IFS=';' read -ra ADDR <<< "$GIT_CORP_ORG"
     for i in "${ADDR[@]}"; do
-      CORP_GIT=$(grep "${i}" ${CONFIG}/.git/config | wc -l)
+      CORP_GIT=$(grep -c "${i}" "${CONFIG}/.git/config")
       if [ "$CORP_GIT" -ge "1" ]; then
         GIT_CORP_USER=$(git config --global corp.user)
         if [[ $(git config user.name) != "$GIT_CORP_USER" || $(git config user.email) != "$GIT_CORP_EMAIL" ]]; then
